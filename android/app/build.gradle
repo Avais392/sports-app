@@ -196,6 +196,9 @@ dependencies {
     implementation "com.facebook.fresco:animated-gif:2.0.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    //By Avais
+    implementation project(':react-native-google-pay')
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }

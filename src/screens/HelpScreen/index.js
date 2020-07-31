@@ -1,25 +1,20 @@
 import React from 'react';
-import {View, Text, ScrollView,Dimensions} from 'react-native';
+import {View, Text, ScrollView, Dimensions} from 'react-native';
 import {WebView} from 'react-native-webview';
 import styles from './styles';
 
 import InstructionStep from '../../components/InstructionStep';
 
-const {width ,height}=Dimensions.get("window")
+const {width, height} = Dimensions.get('window');
 
 const HelpScreen = props => {
   return (
-    // <ScrollView style={{flex: 1}}>
-      <View style={styles.mainContainer}>
-        {/* <InstructionStep /> */}
-        <WebView
-          source={{uri: 'https://sportsfansauctions.com/how-to-play'}}
-          style={{marginTop: -70,width:width}}
-        />
-
-        {/* <Text>Help</Text> */}
-      </View>
-    // </ScrollView>
+    <View style={styles.mainContainer}>
+      <WebView
+        source={{uri: 'https://sportsfansauctions.com/how-to-play'}}
+        style={{marginTop: -70,marginBottom:-400,  width: width}}
+      />
+    </View>
   );
 };
 HelpScreen.navigationOptions = {

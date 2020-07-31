@@ -1,6 +1,16 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import {WebView} from 'react-native-webview';
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
+import endpoint from '../../config';
+import {Events} from '../../assets/Events';
 
 import {
   IronSource,
@@ -12,13 +22,34 @@ import {
 } from '@wowmaking/react-native-iron-source';
 
 import styles from './styles';
-import {TouchableOpacity} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 const segment = new IronSourceSegment();
 
 class VideoAdScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {hasRewardedVideo: false};
+  rewardUserWithBids = async () => {
+    const userData = JSON.parse(await AsyncStorage.getItem('userData'));
+    console.log('Video Done', userData);
+    axios
+      .post(endpoint + '/user/watched-video', {
+        jwt: userData.jwt,
+      })
+      .then(response => {
+        console.log('new', response.data);
+        // AsyncStorage.setItem('userData', {
+        //   ...userData,
+        //   bids: response.data.extra_bids,
+        // });
+      })
+      .catch(error => {
+        console.log('error');
+      });
+  };
   componentDidMount() {
     // It’s recommended to set consent prior to SDK Initialization.
     // IronSource.setConsent(true);
@@ -41,8 +72,6 @@ class VideoAdScreen extends React.Component {
       );
       IronSourceRewardedVideo.initializeRewardedVideo();
     });
-
-    this.showRewardedVideo();
   }
 
   showRewardedVideo = () => {
@@ -56,7 +85,7 @@ class VideoAdScreen extends React.Component {
       'ironSourceRewardedVideoAdRewarded',
       res => {
         console.warn('Rewarded!', res);
-        this.props.navigation.goBack(null);
+        this.rewardUserWithBids();
       },
     );
 
@@ -77,12 +106,6 @@ class VideoAdScreen extends React.Component {
       }
     });
   };
-  // showOfferwall = () => {
-  //   IronSourceOfferwall.showOfferwall();
-  //   IronSourceOfferwall.addEventListener('ironSourceOfferwallReceivedCredits', res => {
-  //     console.warn('Got credits', res)
-  //   });
-  // };
   grantConsent = () => {
     IronSource.setConsent(true);
   };
@@ -91,26 +114,14 @@ class VideoAdScreen extends React.Component {
     IronSource.setConsent(false);
   };
   render() {
-    // this.props.navigation.goBack();
     return (
-      <ScrollView style={{flex: 1}}>
-        <View style={styles.mainContainer}>
-          <TouchableOpacity onPress={() => this.showRewardedVideo()}>
-            <Text style={styles.button}>Show Rewarded. Video</Text>
-          </TouchableOpacity>
-          <Text>
-            Video Ad. Screen {this.state.hasRewardedVideo ? 'true' : 'false'}
-          </Text>
-        </View>
-      </ScrollView>
+      <View>
+        <TouchableOpacity onPress={() => this.showRewardedVideo()}>
+          <View>{this.props.children}</View>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
-VideoAdScreen.navigationOptions = {
-  title: '',
-  headerStyle: {
-    height: 0,
-  },
-};
 
 export default VideoAdScreen;

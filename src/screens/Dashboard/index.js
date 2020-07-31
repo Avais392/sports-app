@@ -11,6 +11,8 @@ import {Events} from '../../assets/Events';
 import DashboardButton from '../../components/DashboardButton';
 import {ScrollView} from 'react-native-gesture-handler';
 import VideoAdScreen from '../VideoAdScreen';
+import GooglePay from '../../components/GooglePay';
+import ApplePay from '../../components/ApplePay';
 
 const data = [
   {status: true},
@@ -74,7 +76,9 @@ const DashboardScreen = props => {
             <Text style={styles.nameText}>{user.username}</Text>
             <Text style={styles.bidsText}>{user.bids} bids left</Text>
             <View style={styles.buyMoreBidsBtn}>
-              <Button title="BUY MORE BIDS" color="#fcc92e" />
+              <GooglePay>
+                <Button title="BUY MORE BIDS" color="#fcc92e" disabled />
+              </GooglePay>
             </View>
           </View>
           <View style={styles.imageView}>
@@ -89,13 +93,10 @@ const DashboardScreen = props => {
           </View>
         </View>
       </View>
-      {/* <CheckBox
-            title={'MOT'}
-            checked={true}
-            style={{width: '100%'}}
-            onPress={() => {}}
-          /> */}
-      <ScrollView style={{flex: 1}}>
+
+      <ScrollView
+        style={{flex: 1, width: '100%'}}
+        showsVerticalScrollIndicator={false}>
         <View
           style={{
             width: '100%',
@@ -123,18 +124,20 @@ const DashboardScreen = props => {
               />
             ))}
           </View>
+          {/* <ApplePay /> */}
           <View
             style={{
               flex: 1,
+              width: '100%',
               flexDirection: 'row',
               justifyContent: 'space-around',
-              marginTop: 10,
+              marginTop: 40,
             }}>
-            <DashboardButton onPress={()=>onShare()} />
-            {/* <VideoAdScreen></VideoAdScreen> */}
-            <DashboardButton onPress={()=>props.navigation.navigate('VideoAd')}/>
+            <DashboardButton title={'SHARE'} onPress={() => onShare()} />
+            <VideoAdScreen>
+              <DashboardButton disabled={true} />
+            </VideoAdScreen>
           </View>
-          
         </View>
       </ScrollView>
     </View>

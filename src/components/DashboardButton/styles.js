@@ -1,49 +1,51 @@
 import {StyleSheet} from 'react-native';
+import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 
 const styles = StyleSheet.create({
-  btnContainer: {
-    backgroundColor: '#3c74b1',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width:150,
-    height:150,
-    borderRadius:5,
-    margin:5
-   
-   
+  scrollView: {backgroundColor: Colors.lighter},
+  engine: {position: 'absolute', right: 0},
+  body: {
+    backgroundColor: Colors.white,
+    borderBottomColor: '#cccccc',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
   },
-  imgContainer: {
-    width:'100%',
-    height:'100%',
-   alignSelf:'center',
-   justifyContent:'space-evenly',
-   alignItems: 'center',
+  sectionContainer: {marginTop: 32, paddingHorizontal: 24},
+  itemContainer: {
+    marginTop: 12,
+    paddingHorizontal: 24,
+    display: 'flex',
+    flexDirection: 'row',
   },
-  textView: {
-    color: '#ffffff',
-    fontSize: 16,
-    textTransform:'uppercase'
+  totalContainer: {
+    marginTop: 12,
+    paddingHorizontal: 24,
+    display: 'flex',
+    flexDirection: 'row',
+    borderTopColor: '#cccccc',
+    borderTopWidth: 1,
+    paddingTop: 10,
+    marginBottom: 20,
   },
-  cellView: {
-    flexDirection: 'column',
-    alignItems: 'center',
+  itemDetail: {flex: 2},
+  itemTitle: {fontWeight: '500', fontSize: 18},
+  itemDescription: {fontSize: 12},
+  itemPrice: {flex: 1},
+  sectionTitle: {fontSize: 24, fontWeight: '600', color: Colors.black},
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 12,
+    fontWeight: '400',
+    color: Colors.dark,
   },
-  singleCell: {
-    borderWidth: 1,
-    borderColor: '#ffffff',
-    padding: 3,
-    height: 40,
-    width: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cellText: {
-    color: '#ffffff',
-    fontSize: 22,
-  },
-  timeUnit: {
-    color: '#ffffff',
-    fontSize: 10,
+  highlight: {fontWeight: '700'},
+  footer: {
+    color: Colors.dark,
+    fontSize: 12,
+    fontWeight: '600',
+    padding: 4,
+    paddingRight: 12,
+    textAlign: 'right',
   },
 });
 
